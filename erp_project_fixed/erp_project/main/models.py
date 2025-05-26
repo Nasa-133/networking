@@ -48,7 +48,7 @@ class Inventory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2)
+    unit_price = models.FloatField()
     date_received = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -67,7 +67,7 @@ class Sale(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.FloatField()
     date_time = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
