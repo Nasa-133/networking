@@ -1,3 +1,4 @@
+import datetime
 import os
 import django
 import random
@@ -78,7 +79,7 @@ def create_products(n=20):
                 category=random.choice(categories),
                 size=random.choice(['S', 'M', 'L', 'XL', 'XXL']),
                 color=fake.color_name(),
-                price=round(random.uniform(10.00, 200.00), 2),
+                price=round(random.uniform(10, 200), 2),
                 stock_quantity=random.randint(0, 100)
             )
         except Exception as e:
@@ -109,7 +110,7 @@ def create_inventories(n=20):
             print(f"Error creating inventory: {str(e)}")
 
 
-def create_sales(n=30):
+def create_sales(n=100):  # sales sonini oshirdik
     print("Creating sales...")
     products = list(Product.objects.all())
     employees = list(Employee.objects.all())
@@ -123,19 +124,21 @@ def create_sales(n=30):
             with transaction.atomic():
                 product = random.choice(products)
                 if product.stock_quantity > 0:
-                    quantity = random.randint(1, min(5, product.stock_quantity))
+                    # quantity ni kamaytirdik: 1 yoki 2
+                    quantity = random.randint(1, min(2, product.stock_quantity))
+                    # employee lar orasidan random tanlash (har safar alohida)
+                    employee = random.choice(employees)
                     Sale.objects.create(
                         product=product,
-                        employee=random.choice(employees),
+                        employee=employee,
                         quantity=quantity,
                         price=product.price
                     )
-                    # Update product stock
+                    # stock ni yangilash
                     product.stock_quantity -= quantity
                     product.save()
         except Exception as e:
             print(f"Error creating sale: {str(e)}")
-
 
 def main():
     print("Starting to generate fake data...")
