@@ -15,7 +15,7 @@ from main.models import Employee, Category, Product, Supplier, Inventory, Sale
 fake = Faker()
 
 
-def create_employees(n=5):
+def create_employees(n=50):
     print("Creating employees...")
     for _ in range(n):
         try:
@@ -50,7 +50,7 @@ def create_categories():
             print(f"Error creating category {name}: {str(e)}")
 
 
-def create_suppliers(n=5):
+def create_suppliers(n=50):
     print("Creating suppliers...")
     for _ in range(n):
         try:
@@ -65,7 +65,7 @@ def create_suppliers(n=5):
             print(f"Error creating supplier: {str(e)}")
 
 
-def create_products(n=20):
+def create_products(n=200):
     print("Creating products...")
     categories = list(Category.objects.all())
     if not categories:
@@ -86,7 +86,7 @@ def create_products(n=20):
             print(f"Error creating product: {str(e)}")
 
 
-def create_inventories(n=20):
+def create_inventories(n=200):
     print("Creating inventories...")
     products = list(Product.objects.all())
     suppliers = list(Supplier.objects.all())
@@ -110,7 +110,7 @@ def create_inventories(n=20):
             print(f"Error creating inventory: {str(e)}")
 
 
-def create_sales(n=100):  # sales sonini oshirdik
+def create_sales(n=1000):  # sales sonini oshirdik
     print("Creating sales...")
     products = list(Product.objects.all())
     employees = list(Employee.objects.all())
